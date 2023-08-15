@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardMedia, List, ListItem, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Box, Card, CardMedia, Table, TableBody, TableCell, TableContainer, TableRow, Typography, createTheme, makeStyles, useMediaQuery, useTheme } from '@mui/material';
 import { useInView } from 'react-intersection-observer';
 import Item from '../../app/components/BoxItem';
 import '@fontsource/roboto/300.css';
@@ -6,6 +6,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import Carousel from 'react-material-ui-carousel';
+import './HomePage.css'
 
 function createData(
   name: string,
@@ -49,17 +50,66 @@ export default function HomePage() {
   const { ref, inView, entry } = useInView({
   });
 
-    return(
+  const theme = createTheme({
+    breakpoints: {
+      values: {
+        xs: 425,
+        sm: 768,
+        md: 1024,
+        lg: 1440,
+        xl: 1920
+      },
+    },
+  });
+  
+  const isMatchLG = useMediaQuery(theme.breakpoints.down('lg'))
+
+  const isMatchMD = useMediaQuery(theme.breakpoints.down('md'))
+
+  const isMatchSM = useMediaQuery(theme.breakpoints.down('sm'))
+
+  const isMatchXS = useMediaQuery(theme.breakpoints.down('xs'))
+  
+  // Subset of props, to illustrate the idea.
+  const config1 = isMatchSM ? {fontSize: '2.5rem', margin: 0} : (isMatchMD ? {fontSize: '3.5rem', margin: 0} : {fontSize: '6rem', margin: 0});
+
+  const config1_2 = isMatchSM ? {fontSize: '2.5rem', margin: '0 0 0 2rem'} : (isMatchMD ? {fontSize: '3.5rem', margin: 0} : {fontSize: '6rem', margin: 0});
+
+  const config2 = isMatchSM ? {fontSize: '1rem', margin: '1.7rem 0 0 8px'} : (isMatchMD ? {fontSize: '1.5rem', margin: '2.5rem 0 0 8px'} : {fontSize: '2rem', margin: '4rem 0 0 1rem'});
+
+  const config3 = isMatchSM ? {fontSize: '1rem', margin: '4.8rem 0 0 -6rem'} : (isMatchMD ? {fontSize: '1.2rem', margin: '4.8rem 0 0 -8rem'} : {fontSize: '1.2rem', margin: '7rem 0 0 -10rem'});
+
+  const config3_2 = isMatchSM ? {fontSize: '1rem', margin: '4.8rem 0 0 -8rem'} : (isMatchMD ? {fontSize: '1.2rem', margin: '4.8rem 0 0 -8rem'} : {fontSize: '1.2rem', margin: '7rem 0 0 -10rem'});
+
+  const config4 = isMatchSM ? {padding: "10% 1rem 0 1rem", fontSize: "1.3rem", textAlign: 'center'} : {padding: "10% 0 0 3rem", fontSize: "1.3rem", textAlign: 'center'};
+
+  const config5 = isMatchXS ? {padding: "0", fontSize: "1.3rem", textAlign: "center", position: 'absolute', top: '55%', minWidth: '40%'} : (isMatchSM ? {padding: "0", fontSize: "1.3rem", textAlign: "center", position: 'absolute', top: '75%', minWidth: '40%'} : {padding: "6% 2rem 0 1rem", fontSize: "1.3rem", textAlign: "center", position: 'static', top: '0', minWidth: '40%'});
+  
+  const config6 = isMatchSM ? {width: '90%', display: 'flex', flexDirection: 'column', marginTop: '7rem'} : {width: '90%', display: 'flex', flexDirection: 'row', marginTop: '7rem'};
+
+  const config7 = isMatchSM ? {width: '90%', display: 'flex', flexDirection: 'column', margin: '7rem auto 14rem auto', position: 'relative', top: '5rem'} : {width: '90%', display: 'flex', flexDirection: 'row', margin: '7rem 0 0 0', position: 'static', top: 0};
+
+  const carSpecsBreafBox = isMatchSM ? {display: 'flex', justifyContent: 'space-evenly', flexDirection: 'column', p: 1, m: 1, position: 'relative', top: '15rem', margin: 0, alignItems: 'center'} : (isMatchMD ? { display: 'flex', justifyContent: 'space-evenly', flexDirection: 'row', p: 1, m: 1, position: 'relative', top: '30rem', margin: 0, alignItems: 'none'} : {display: 'flex', justifyContent: 'space-evenly', flexDirection: 'row', p: 1, m: 1, position: 'relative', top: '75vh', margin: 0, alignItems: 'none'});
+  
+  const carSpecsBreafCard = isMatchSM ? {backgroundColor: 'rgb(38, 38, 38);', minHeight: '42rem', width: '100%'} : (isMatchMD ? {backgroundColor: 'rgb(38, 38, 38);', minHeight: '650px', width: '100%'} : {backgroundColor: 'rgb(38, 38, 38);', minHeight: '100vh', width: '100%'});
+
+  const carSpecsBreafCardMedia = isMatchSM ? {width: '100%', minHeight: '10rem', height: '15rem'} : (isMatchMD ? {width: '100%', minHeight: '30rem'} : {width: '100%', minHeight: '75vh'});
+
+  const specsText1 = isMatchXS ? {fontSize: '1.5rem', margin: '3rem 0 2rem 0'} : (isMatchSM ? {fontSize: '2rem', margin: '3rem 0 2rem 0'} : {fontSize: '1.8rem', margin: '3rem 0 2rem 0'});
+
+  const mainParametersBox = isMatchMD ? {width: '100%', display: 'flex', flexDirection:'column', justifyContent: 'space-evenly'} : {width: '100%', display: 'flex', flexDirection:'row', justifyContent: 'space-evenly'};
+
+  const mainParametersTable = isMatchMD ? {width: '100%'} : {width: '30%'};
+
+  return(
         <>
             <div style={{backgroundColor:"#262626", color: 'white'}}>
-                <Card>
+                <Card
+                  className="Card1"
+                  >
                   <CardMedia
-                    image='/images/ge1.webp'
-                    sx={{
-                      display: 'block',
-                      width: '100%',
-                      minHeight: 900,
-                    }}
+                  image='/images/ge1.webp'
+                  className="CardMedia1"
                   >
                   <Box
                     sx={{
@@ -74,23 +124,14 @@ export default function HomePage() {
                       display: 'flex',
                       flexDirection: 'row'
                     }}>
-                      <Typography
-                      sx={{
-                        fontSize: '5rem',
-                        margin: 0,
-                        color: 'black'
-                      }}
-                      >GEOMETRY | E</Typography>
+                    <p
+                      className='GeText'
+                    >GEOMETRY | E</p>
                     </Item>
                     </Box>
                   </CardMedia>
                 </Card>
-                <Box
-                    margin="auto"
-                    sx={{
-                      maxWidth: "65%"
-                    }}
-                >
+                <div className='rangeDiv'>
                   <div
                   ref={ref}
                   style={{
@@ -98,52 +139,32 @@ export default function HomePage() {
                     translate: inView ? "none" : "0 5rem",
                     transition: "600ms ease-in-out",
                   }}>
-                    <p style={{fontSize:'2.5rem', textAlign: 'center', margin:"2rem 0 2rem 0", fontFamily:'Garamond, serif'}}>მანძილი</p>
-                    <p style={{textAlign:'center', fontSize:'1.2rem', margin: "0 0 2rem 0"}}>წამყვანი სამი სიმძლავრის ტექნოლოგიით GEOMETRY E ადვილად უმკლავდება მანქანის სხვადასხვა სცენარს, ქმნის არაჩვეულებრივ ხანგრძლივ ბატარეას და მართვის დიაპაზონს.</p>
+                    <p className='rangeText1'>მანძილი</p>
+                    <p className='rangeText2'>წამყვანი სამი სიმძლავრის ტექნოლოგიით GEOMETRY E ადვილად უმკლავდება მანქანის სხვადასხვა სცენარს, ქმნის არაჩვეულებრივ ხანგრძლივ ბატარეას და მართვის დიაპაზონს.</p>
                   </div>
-                </Box>
-                <Card 
-                  sx={{
-                    minHeight: 200,
-                    width: '100%'
-                  }}
+                </div>
+                <Card
+                  sx={carSpecsBreafCard}
                 >
                   <CardMedia
                     image='/images/ge2.webp'
-                    sx={{
-                      width: '100%'
-                    }}
+                    sx={carSpecsBreafCardMedia}
                   >
                   <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'space-evenly',
-                      p: 1,
-                      m: 1,
-                      paddingTop: '45%',
-                      margin: 0,
-                    }}
+                    sx={carSpecsBreafBox}
                   >
                     <Item sx={{
                       display: 'flex',
                       flexDirection: 'row',
                     }}>
                       <Typography
-                      sx={{
-                        fontSize: '6rem',
-                         margin: 0
-                      }}
+                        sx={config1}
                       >7.7</Typography>
                       <Typography
-                      sx={{
-                        fontSize: '2rem',
-                         margin: '4rem 0 0 1rem'
-                      }}>წამი</Typography>
+                        sx={config2}>წამი</Typography>
                       <Typography
-                      sx={{
-                        fontSize: '1.2rem',
-                        margin: '7rem 0 0 -10rem'
-                      }}>0-100 კმ/სთ</Typography>
+                        sx={config3}
+                      >0-100 კმ/სთ</Typography>
                     </Item>
                     <Item
                     sx={{
@@ -151,21 +172,14 @@ export default function HomePage() {
                       flexDirection: 'row'
                     }}>
                       <Typography
-                      sx={{
-                        fontSize: '6rem',
-                         margin: 0
-                      }}
+                        sx={config1}
                       >401</Typography>
                       <Typography
-                      sx={{
-                        fontSize: '2.5rem',
-                         margin: '3.3rem 0 0 5px'
-                      }}>კმ</Typography>
+                      sx={config2}
+                      >კმ</Typography>
                       <Typography
-                      sx={{
-                        fontSize: '1.2rem',
-                        margin: '7rem 0 0 -10rem'
-                      }}>WLTP მანძილი</Typography>
+                      sx={config3}
+                      >WLTP მანძილი</Typography>
                     </Item>
                     <Item
                     sx={{
@@ -173,81 +187,47 @@ export default function HomePage() {
                       flexDirection: 'row'
                     }}>
                       <Typography
-                      sx={{
-                        fontSize: '6rem',
-                         margin: 0
-                      }}
+                        sx={config1_2}
                       >39</Typography>
                       <Typography
-                      sx={{
-                        fontSize: '2rem',
-                         margin: '4rem 0 0 1rem'
-                      }}>კვტ·სთ</Typography>
+                      sx={config2}
+                      >კვტ·სთ</Typography>
                       <Typography
-                      sx={{
-                        fontSize: '1.2rem',
-                        margin: '7rem 0 0 -12rem'
-                      }}>ბატარეის ტევადობა</Typography>
+                      sx={config3_2}
+                      >ბატარეის ტევადობა</Typography>
                     </Item>
                   </Box>
                   </CardMedia>
                 </Card>
                 <Box
                   margin='auto'
-                  sx={{
-                    width: '80%',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    marginTop: '7rem'
-                  }}
+                  sx={config6}
                 >
-                  <img src='/images/ge13.jpg' style={{maxWidth: '65%'}}/>
+                  <img src='/images/ge13.jpg' className='carDetails1'/>
                   <Typography
-                    sx={{
-                      padding: "11rem 0 0 3rem",
-                      fontSize: "1.3rem",
-                      textAlign: 'center'
-                    }}
+                    sx={config4}
                   >
                     პლატინუმის Super Fast დამტენით, ბატარეის 80%-ის(320 კმ) დატენვას მხოლოდ 42 წუთი სჭირდება.
                   </Typography>
                 </Box>
                 <Box
                   margin='auto'
-                  sx={{
-                    width: '80%',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    marginTop: '5rem'
-                  }}
+                  sx={config7}
                 >
                   <Typography
-                    sx={{
-                      padding: "10rem 3rem 0 0",
-                      fontSize: "1.3rem",
-                      textAlign: 'center'
-                    }}
+                    sx={config5}
                   >
                     მაღალი ეფექტურობის სამი-ერთში ელექტრული წამყვანი სისტემა მნიშვნელოვნად ამცირებს ნაწილების მოცულობას და რაოდენობას.
                   </Typography>
-                  <img src='/images/ge10.jpg' style={{maxWidth: '65%'}}/>
+                  <img src='/images/ge10.jpg' className='carDetails2'/>
                 </Box>
                 <Box
                   margin='auto'
-                  sx={{
-                    width: '80%',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    marginTop: '5rem'
-                  }}
+                  sx={config6}
                 >
-                  <img src='/images/ge11.jpg' style={{maxWidth: '65%'}}/>
+                  <img src='/images/ge11.jpg' className='carDetails1'/>
                   <Typography
-                    sx={{
-                      padding: "10rem 0 0 3rem",
-                      fontSize: "1.3rem",
-                      textAlign: "center"
-                    }}
+                    sx={config4}
                   >
                     მაღალი სიმკვრივის და დიდი ტევადობის ბატარეა სრულ ენერგიას აწვდის GEOMETRY E-ს.
                   </Typography>
@@ -286,26 +266,16 @@ export default function HomePage() {
                   </div>
                 </Carousel>
                 <img src='/images/ge3.webp' style={{display: 'block', width: '90%', margin:'auto', marginTop:'7rem'}}/>
-                <Typography 
-                  sx={{
-                    fontSize: '3rem',
-                    margin: '3rem 0 2rem 0'
-                  }}
-                  align='center'
-                >ძირითადი პარამეტრები</Typography>
                 <Box
-                  sx={{
-                    width: '100%',
-                    display: 'flex',
-                    flexDirection:'row',
-                    justifyContent: 'space-evenly'
-                  }}
+                  sx={mainParametersBox}
                 >
                 <TableContainer 
-                  sx={{
-                    width: '30%'
-                  }}
+                  sx={mainParametersTable}
                 >
+                <Typography 
+                  sx={specsText1}
+                  align='center'
+                >ძირითადი პარამეტრები</Typography>
                   <Table aria-label="simple table">
                     <TableBody>
                       {rows1.map((row) => (
@@ -323,10 +293,12 @@ export default function HomePage() {
                   </Table>
                 </TableContainer>
                 <TableContainer 
-                  sx={{
-                    width: '30%'
-                  }}
+                  sx={mainParametersTable}
                 >
+                <Typography 
+                  sx={specsText1}
+                  align='center'
+                >მოტორული სისტემა</Typography>
                   <Table aria-label="simple table">
                     <TableBody>
                       {rows2.map((row) => (
@@ -344,10 +316,12 @@ export default function HomePage() {
                   </Table>
                 </TableContainer>
                 <TableContainer 
-                  sx={{
-                    width: '30%'
-                  }}
+                  sx={mainParametersTable}
                 >
+                <Typography 
+                  sx={specsText1}
+                  align='center'
+                >ჭკვიანი კომპონენტები</Typography>
                   <Table aria-label="simple table">
                     <TableBody>
                       {rows3.map((row) => (

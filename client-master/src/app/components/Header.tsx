@@ -40,7 +40,6 @@ export default function Header() {
     <AppBar position="static" style={{ background: color ? '#262626' : 'transparent', boxShadow: '1', position: "fixed", top: "0px", transition: "500ms ease-in-out", zIndex: 2}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex', color: color ? 'white' : 'black' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -56,7 +55,7 @@ export default function Header() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            China Auto
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -66,7 +65,9 @@ export default function Header() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
+              sx={{
+                color: color ? 'white' : 'black'
+              }}
             >
               <MenuIcon />
             </IconButton>
@@ -95,7 +96,6 @@ export default function Header() {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -108,11 +108,11 @@ export default function Header() {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'inherit',
+              color: color ? 'white' : 'black',
               textDecoration: 'none',
             }}
           >
-            LOGO
+            China Auto
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, marginLeft: "25%" }}>
             {pages.map((page) => (
